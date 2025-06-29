@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+  <title>{{ 'แก้ไข' if student else 'เพิ่ม' }} ข้อมูล</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="p-4">
+  <h1>{{ 'แก้ไข' if student else 'เพิ่ม' }} ข้อมูล</h1>
+  <form method="POST" enctype="multipart/form-data">
+    <input name="name" placeholder="ชื่อ" class="form-control mb-2" value="{{ student.name if student else '' }}" required>
+    <input name="nickname" placeholder="ชื่อเล่น" class="form-control mb-2" value="{{ student.nickname if student else '' }}" required>
+    <input name="student_id" placeholder="รหัสนักศึกษา" class="form-control mb-2" value="{{ student.student_id if student else '' }}" required>
+    <input name="team" placeholder="ทีม" class="form-control mb-2" value="{{ student.team if student else '' }}" required>
+    <input type="file" name="image" class="form-control mb-2" {{ 'required' if not student else '' }}>
+    
+    {% if student and student.image %}
+      <img src="{{ url_for('static', filename='uploads/' + student.image) }}" height="100" class="mb-3"><br>
+    {% endif %}
+
+    <button type="submit" class="btn btn-success">บันทึก</button>
+    <a href="{{ url_for('index') }}" class="btn btn-warning">ยกเลิก</a>
+  </form>
+</body>
+</html>

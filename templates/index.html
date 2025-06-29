@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+  <title>Student List</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="p-4">
+  <h1>รายชื่อนักศึกษา</h1>
+  <a class="btn btn-primary mb-3" href="/add">+ เพิ่มข้อมูล</a>
+  <div class="row">
+    {% for s in students %}
+    <div class="col-md-4">
+      <div class="card mb-3">
+        <img src="{{ url_for('static', filename='uploads/' + s.image) }}"
+          class="card-img-top img-fluid"
+          style="height: 400px; width: 100%; object-fit: cover;">
+        <div class="card-body">
+          <h5>{{ s.name }} ({{ s.nickname }})</h5>
+          <p>รหัสนักศึกษา: {{ s.student_id }}<br>ทีม: {{ s.team }}</p>
+          <a class="btn btn-warning" href="/edit/{{ s.id }}">แก้ไข</a>
+          <a class="btn btn-danger" href="/delete/{{ s.id }}" onclick="return confirm('ลบข้อมูลนี้หรือไม่?')">ลบ</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <a href="{{ url_for('show_cars') }}">
+  <button class="btn btn-warning">ดูรายการรถยนต์</button>
+</a>
+</body>
+</html>
